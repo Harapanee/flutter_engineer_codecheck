@@ -58,6 +58,7 @@ class RepoList extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final repos = ref.watch(repoListProvider);
+    final notifier = ref.read(selectedRepoProvider.notifier);
     return SizedBox(
       width: 500,
       height:600,
@@ -71,6 +72,7 @@ class RepoList extends ConsumerWidget {
             ),
             title: Text(repo.fullName),
             onTap: (){
+              notifier.state = repo;
               //いずれかのレポジトリがタップされた時の処理（画面遷移）をここに書く
             }
           );
@@ -117,6 +119,12 @@ class Repository {
 final repoListProvider = StateProvider(
   (ref) {
     return <Repository>[];
+  }
+);
+
+final selectedRepoProvider = StateProvider<Repository?>(
+  (ref) {
+    return null;
   }
 );
 
