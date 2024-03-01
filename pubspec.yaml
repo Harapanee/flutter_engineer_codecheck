@@ -8,6 +8,8 @@ environment:
 
 dependencies:
   flutter_riverpod:
+  http:
+  convert:
   flutter:
     sdk: flutter
 
@@ -17,7 +19,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
-  flutter_lints: ^2.0.0
+  flutter_lints:
 
 flutter:
 
