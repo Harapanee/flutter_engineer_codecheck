@@ -44,3 +44,23 @@ class SearchField extends StatelessWidget {
     );
   }
 }
+
+class Repository {
+  final String fullName;
+  final int stargazersCount;
+  final String avatarUrl;
+  final String language;
+  final int watchers;
+  final int forks;
+  final int openIssuesCount;
+
+  Repository({
+    required this.fullName,
+    required this.stargazersCount,
+    required this.avatarUrl,
+    required this.language,
+    required this.watchers,
+    required this.forks,
+    required this.openIssuesCount,
+  });
+}
