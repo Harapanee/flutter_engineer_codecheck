@@ -1,11 +1,11 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart' as http;
 
 void main() {
-  runApp(const MyApp());
+  const scope = ProviderScope(child: MyApp());
+  runApp(scope);
 }
 
 class MyApp extends StatelessWidget {
@@ -21,6 +21,7 @@ class MyApp extends StatelessWidget {
         body: const Column(
           children: [
             SearchField(),
+            RepoList(),
           ]
         )
       )
@@ -47,6 +48,34 @@ class SearchField extends ConsumerWidget {
         final results = await searchRepos(value);
         notifier.state = results;
       },
+    );
+  }
+}
+
+class RepoList extends ConsumerWidget {
+  const RepoList({super.key});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final repos = ref.watch(repoListProvider);
+    return SizedBox(
+      width: 500,
+      height:600,
+      child: ListView.builder(
+        itemCount: repos.length,
+        itemBuilder: (context, index) {
+          final repo = repos[index];
+          return ListTile(
+            leading: CircleAvatar(
+              backgroundImage: NetworkImage(repo.avatarUrl),
+            ),
+            title: Text(repo.fullName),
+            onTap: (){
+              //いずれかのレポジトリがタップされた時の処理（画面遷移）をここに書く
+            }
+          );
+        },
+      )
     );
   }
 }
