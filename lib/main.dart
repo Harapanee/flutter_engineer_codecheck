@@ -29,12 +29,12 @@ final goRouterProvider = Provider(
       GoRoute(
         path: '/repoSearch',
         name: 'repoSearch',
-        builder: (context, state) => const RepositorySearchApp(),
+        builder: (context, state) => const RepositorySearchPage(),
       ),
       GoRoute(
         path: '/detailView',
         name: 'detailView',
-        builder: (context, state) => const DetailViewApp(),
+        builder: (context, state) => const DetailViewPage(),
       )
     ];
 
@@ -46,21 +46,105 @@ final goRouterProvider = Provider(
   }
 );
 
-class DetailViewApp extends StatelessWidget {
-  const DetailViewApp({super.key});
+class DetailViewPage extends ConsumerWidget {
+  const DetailViewPage({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final repo = ref.watch(selectedRepoProvider) as Repository;
+    final appBar = AppBar(
+      backgroundColor: Colors.blue,
+      title: Text(repo.fullName),
+    );
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Detail View'),
-      ),
+      appBar: appBar,
+      body: SafeArea(
+        child: Padding(
+          padding: EdgeInsets.all(20.0),
+          child: Column(
+            children: [
+              Container(
+                width: 200.0,
+                height: 200.0,
+                decoration: BoxDecoration(
+                  shape: BoxShape.rectangle,
+                  image: DecorationImage(
+                    image: NetworkImage(repo.avatarUrl),
+                    fit: BoxFit.cover,
+                  ),
+                  borderRadius: BorderRadius.circular(30.0),
+                ),
+              ),
+              SizedBox(height: 20.0),
+              Text(
+                repo.fullName,
+                style: const TextStyle(fontSize: 24.0),
+              ),
+              SizedBox(height: 10.0),
+              Row(
+                children: [
+                  const Icon(Icons.star, color: Colors.amber),
+                  const SizedBox(width: 5.0),
+                  Text(
+                    repo.stargazersCount.toString(),
+                    style: const TextStyle(fontSize: 16.0),
+                  ),
+                ],
+              ),
+              SizedBox(height: 10.0),
+              Row(
+                children: [
+                  const Icon(Icons.remove_red_eye, color: Colors.blue),
+                  const SizedBox(width: 5.0),
+                  Text(
+                    repo.watchers.toString(),
+                    style: const TextStyle(fontSize: 16.0),
+                  ),
+                ],
+              ),
+              SizedBox(height: 10.0),
+              Row(
+                children: [
+                  const Icon(Icons.language, color: Colors.grey),
+                  const SizedBox(width: 5.0),
+                  Text(
+                    repo.language,
+                    style: const TextStyle(fontSize: 16.0),
+                  ),
+                ],
+              ),
+              SizedBox(height: 10.0),
+              Row(
+                children: [
+                  const Icon(Icons.code, color: Colors.grey),
+                  const SizedBox(width: 5.0),
+                  Text(
+                    repo.forks.toString(),
+                    style: const TextStyle(fontSize: 16.0),
+                  ),
+                ],
+              ),
+              SizedBox(height: 10.0),
+              Row(
+                children: [
+                  const Icon(Icons.bug_report, color: Colors.red),
+                  const SizedBox(width: 5.0),
+                  Text(
+                    repo.openIssuesCount.toString(),
+                    style: const TextStyle(fontSize: 16.0),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        )
+      )
     );
   }
 }
 
-class RepositorySearchApp extends StatelessWidget {
-  const RepositorySearchApp({super.key});
+class RepositorySearchPage extends StatelessWidget {
+  const RepositorySearchPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -125,7 +209,6 @@ class RepoList extends ConsumerWidget {
               notifier.state = repo;
               final router = ref.read(goRouterProvider);
               router.pushNamed('detailView');
-              //いずれかのレポジトリがタップされた時の処理（画面遷移）をここに書く
             }
           );
         },
@@ -155,7 +238,7 @@ class Repository {
 
   factory Repository.fromJson(Map<String, dynamic> json) {
     final ownerData = json['owner'] as Map<String, dynamic>?;
-    final avatarUrl = ownerData?['avatar_url'] as String? ?? 'assets/images/no_image_square.jpg';
+    final avatarUrl = ownerData?['avatar_url'] as String;
     return Repository(
       fullName: json['full_name'] ?? 'N/A',
       stargazersCount: json['stargazers_count'] ?? 0,
