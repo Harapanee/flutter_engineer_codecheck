@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:http/http.dart' as http;
 
 void main() {
@@ -8,22 +9,154 @@ void main() {
   runApp(scope);
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends ConsumerWidget {
   const MyApp({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Search Repository'),
-        ),
-        body: const Column(
-          children: [
-            SearchField(),
-            RepoList(),
-          ]
+  Widget build(BuildContext context, WidgetRef ref) {
+    final router = ref.watch(goRouterProvider);
+    return MaterialApp.router(
+      routeInformationProvider: router.routeInformationProvider,
+      routeInformationParser: router.routeInformationParser,
+      routerDelegate: router.routerDelegate,
+    );
+  }
+}
+
+final goRouterProvider = Provider(
+  (ref){
+    final routes = [
+      GoRoute(
+        path: '/repoSearch',
+        name: 'repoSearch',
+        builder: (context, state) => const RepositorySearchPage(),
+      ),
+      GoRoute(
+        path: '/detailView',
+        name: 'detailView',
+        builder: (context, state) => const DetailViewPage(),
+      )
+    ];
+
+    return GoRouter(
+      initialLocation: '/repoSearch',
+      debugLogDiagnostics: false,
+      routes: routes,
+    );
+  }
+);
+
+class DetailViewPage extends ConsumerWidget {
+  const DetailViewPage({super.key});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final repo = ref.watch(selectedRepoProvider) as Repository;
+    final appBar = AppBar(
+      backgroundColor: Colors.blue,
+      title: Text(repo.fullName),
+    );
+    return Scaffold(
+      appBar: appBar,
+      body: SafeArea(
+        child: Padding(
+          padding: EdgeInsets.all(20.0),
+          child: Column(
+            children: [
+              Container(
+                width: 200.0,
+                height: 200.0,
+                decoration: BoxDecoration(
+                  shape: BoxShape.rectangle,
+                  image: DecorationImage(
+                    image: NetworkImage(repo.avatarUrl),
+                    fit: BoxFit.cover,
+                  ),
+                  borderRadius: BorderRadius.circular(30.0),
+                ),
+              ),
+              SizedBox(height: 20.0),
+              Text(
+                repo.fullName,
+                style: const TextStyle(fontSize: 24.0),
+              ),
+              SizedBox(height: 10.0),
+              Row(
+                children: [
+                  const Icon(Icons.star, color: Colors.amber),
+                  const SizedBox(width: 5.0),
+                  Text(
+                    repo.stargazersCount.toString(),
+                    style: const TextStyle(fontSize: 16.0),
+                  ),
+                ],
+              ),
+              SizedBox(height: 10.0),
+              Row(
+                children: [
+                  const Icon(Icons.remove_red_eye, color: Colors.blue),
+                  const SizedBox(width: 5.0),
+                  Text(
+                    repo.watchers.toString(),
+                    style: const TextStyle(fontSize: 16.0),
+                  ),
+                ],
+              ),
+              SizedBox(height: 10.0),
+              Row(
+                children: [
+                  const Icon(Icons.language, color: Colors.grey),
+                  const SizedBox(width: 5.0),
+                  Text(
+                    repo.language,
+                    style: const TextStyle(fontSize: 16.0),
+                  ),
+                ],
+              ),
+              SizedBox(height: 10.0),
+              Row(
+                children: [
+                  const Icon(Icons.code, color: Colors.grey),
+                  const SizedBox(width: 5.0),
+                  Text(
+                    repo.forks.toString(),
+                    style: const TextStyle(fontSize: 16.0),
+                  ),
+                ],
+              ),
+              SizedBox(height: 10.0),
+              Row(
+                children: [
+                  const Icon(Icons.bug_report, color: Colors.red),
+                  const SizedBox(width: 5.0),
+                  Text(
+                    repo.openIssuesCount.toString(),
+                    style: const TextStyle(fontSize: 16.0),
+                  ),
+                ],
+              ),
+            ],
+          ),
         )
+      )
+    );
+  }
+}
+
+class RepositorySearchPage extends StatelessWidget {
+  const RepositorySearchPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Search Repository'),
+      ),
+      body: const Column(
+        children: [
+          SearchField(),
+          RepoList(),
+        ]
       )
     );
   }
@@ -44,6 +177,7 @@ class SearchField extends ConsumerWidget {
       ),
       keyboardType: TextInputType.text,
       textInputAction: TextInputAction.search,
+
       onSubmitted: (value) async {
         final results = await searchRepos(value);
         notifier.state = results;
@@ -58,6 +192,7 @@ class RepoList extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final repos = ref.watch(repoListProvider);
+    final notifier = ref.read(selectedRepoProvider.notifier);
     return SizedBox(
       width: 500,
       height:600,
@@ -71,7 +206,9 @@ class RepoList extends ConsumerWidget {
             ),
             title: Text(repo.fullName),
             onTap: (){
-              //いずれかのレポジトリがタップされた時の処理（画面遷移）をここに書く
+              notifier.state = repo;
+              final router = ref.read(goRouterProvider);
+              router.pushNamed('detailView');
             }
           );
         },
@@ -101,7 +238,7 @@ class Repository {
 
   factory Repository.fromJson(Map<String, dynamic> json) {
     final ownerData = json['owner'] as Map<String, dynamic>?;
-    final avatarUrl = ownerData?['avatar_url'] as String? ?? 'assets/images/no_image_square.jpg';
+    final avatarUrl = ownerData?['avatar_url'] as String;
     return Repository(
       fullName: json['full_name'] ?? 'N/A',
       stargazersCount: json['stargazers_count'] ?? 0,
@@ -117,6 +254,12 @@ class Repository {
 final repoListProvider = StateProvider(
   (ref) {
     return <Repository>[];
+  }
+);
+
+final selectedRepoProvider = StateProvider<Repository?>(
+  (ref) {
+    return null;
   }
 );
 
