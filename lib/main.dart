@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:http/http.dart' as http;
 
 void main() {
@@ -8,22 +9,70 @@ void main() {
   runApp(scope);
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends ConsumerWidget {
   const MyApp({super.key});
 
   @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final router = ref.watch(goRouterProvider);
+    return MaterialApp.router(
+      routeInformationProvider: router.routeInformationProvider,
+      routeInformationParser: router.routeInformationParser,
+      routerDelegate: router.routerDelegate,
+    );
+  }
+}
+
+final goRouterProvider = Provider(
+  (ref){
+    final routes = [
+      GoRoute(
+        path: '/repoSearch',
+        name: 'repoSearch',
+        builder: (context, state) => const RepositorySearchApp(),
+      ),
+      GoRoute(
+        path: '/detailView',
+        name: 'detailView',
+        builder: (context, state) => const DetailViewApp(),
+      )
+    ];
+
+    return GoRouter(
+      initialLocation: '/repoSearch',
+      debugLogDiagnostics: false,
+      routes: routes,
+    );
+  }
+);
+
+class DetailViewApp extends StatelessWidget {
+  const DetailViewApp({super.key});
+
+  @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Search Repository'),
-        ),
-        body: const Column(
-          children: [
-            SearchField(),
-            RepoList(),
-          ]
-        )
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Detail View'),
+      ),
+    );
+  }
+}
+
+class RepositorySearchApp extends StatelessWidget {
+  const RepositorySearchApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Search Repository'),
+      ),
+      body: const Column(
+        children: [
+          SearchField(),
+          RepoList(),
+        ]
       )
     );
   }
@@ -44,6 +93,7 @@ class SearchField extends ConsumerWidget {
       ),
       keyboardType: TextInputType.text,
       textInputAction: TextInputAction.search,
+
       onSubmitted: (value) async {
         final results = await searchRepos(value);
         notifier.state = results;
@@ -73,6 +123,8 @@ class RepoList extends ConsumerWidget {
             title: Text(repo.fullName),
             onTap: (){
               notifier.state = repo;
+              final router = ref.read(goRouterProvider);
+              router.pushNamed('detailView');
               //いずれかのレポジトリがタップされた時の処理（画面遷移）をここに書く
             }
           );
