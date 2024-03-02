@@ -1,0 +1,33 @@
+class Repository {
+  final String fullName;
+  final int stargazersCount;
+  final String avatarUrl;
+  final String language;
+  final int watchers;
+  final int forks;
+  final int openIssuesCount;
+
+  Repository({
+    required this.fullName,
+    required this.stargazersCount,
+    required this.avatarUrl,
+    required this.language,
+    required this.watchers,
+    required this.forks,
+    required this.openIssuesCount,
+  });
+
+  factory Repository.fromJson(Map<String, dynamic> json) {
+    final ownerData = json['owner'] as Map<String, dynamic>?;
+    final avatarUrl = ownerData?['avatar_url'] as String;
+    return Repository(
+      fullName: json['full_name'] ?? 'N/A',
+      stargazersCount: json['stargazers_count'] ?? 0,
+      avatarUrl: avatarUrl,
+      language: json['language'] ?? 'N/A',
+      watchers: json['watchers'] ?? 0,
+      forks: json['forks'] ?? 0,
+      openIssuesCount: json['open_issues_count'] ?? 0,
+    );
+  }
+}
