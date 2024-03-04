@@ -9,7 +9,7 @@ class BigAvatarImage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final repo = ref.watch(selectedRepoProvider) as Repository;
-    
+
     return Container(
       width: 200.0,
       height: 200.0,

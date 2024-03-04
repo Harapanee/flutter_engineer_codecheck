@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_engineer_codecheck/aplication/selected_repo_provider.dart';
 import 'package:flutter_engineer_codecheck/domain/repo_data_model.dart';
@@ -21,29 +20,7 @@ class RepoDetailElements extends ConsumerWidget {
     );
   }
 }
-/*
-Widget repoDetailElement({
-    required Color iconColor,
-    required IconData icon,
-    required String elementData,
-  })
-  {return Column(
-    children: [
-      const SizedBox(height: 10.0),
-      Row(
-        children: [
-          Icon(icon, color: iconColor),
-          const SizedBox(width: 5.0),
-          Text(
-            elementData,
-            style: const TextStyle(fontSize: 16.0),
-          ),
-        ],
-      ),
-    ],
-  );
-}
-*/
+
 Widget repoDetailElement({
     required Color iconColor,
     required IconData icon,
