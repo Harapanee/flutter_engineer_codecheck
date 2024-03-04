@@ -9,8 +9,8 @@ class MyApp extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     Sizes.deviceSize = MediaQuery.of(context).size;
-    debugPrint(Sizes.deviceSize.height as String?);
     final router = ref.watch(goRouterProvider);
+
     return MaterialApp.router(
       routeInformationProvider: router.routeInformationProvider,
       routeInformationParser: router.routeInformationParser,

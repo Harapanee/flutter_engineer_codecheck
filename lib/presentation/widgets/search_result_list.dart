@@ -11,9 +11,9 @@ class SearchResultList extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final repos = ref.watch(repoListProvider);
     final notifier = ref.read(selectedRepoProvider.notifier);
-    return SizedBox(
-      width: 500,
-      height:600,
+    return Expanded(
+      //width: Sizes.deviceSize.width,
+      //height: Sizes.deviceSize.height/2,
       child: ListView.builder(
         itemCount: repos.length,
         itemBuilder: (context, index) {

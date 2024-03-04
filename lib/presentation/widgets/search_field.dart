@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_engineer_codecheck/aplication/repo_list_provider.dart';
 import 'package:flutter_engineer_codecheck/infrastructure/api_client.dart';
+import 'package:flutter_engineer_codecheck/presentation/themes/sizes.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class SearchField extends ConsumerWidget {
@@ -22,6 +23,8 @@ class SearchField extends ConsumerWidget {
       onSubmitted: (value) async {
         final results = await searchRepos(value);
         notifier.state = results;
+        debugPrint('hight = ${Sizes.deviceSize.height}');
+        debugPrint('width = ${Sizes.deviceSize.width}');
       },
     );
   }
