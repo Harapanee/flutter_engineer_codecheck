@@ -12,6 +12,7 @@ class RepoDetailElements extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final repo = ref.watch(selectedRepoProvider) as Repository;
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         repoDetailElement(iconColor: BrandColor.bananaYellow, icon: Icons.star, elementData: repo.stargazersCount.toString()),
         repoDetailElement(iconColor: BrandColor.blue, icon: Icons.remove_red_eye, elementData: repo.watchers.toString()),

@@ -11,23 +11,51 @@ class DetailViewPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final orientation = MediaQuery.of(context).orientation;
     final repo = ref.watch(selectedRepoProvider) as Repository;
     final appBar = AppBar(
       title: Text(repo.fullName),
     );
     return Scaffold(
       appBar: appBar,
-      body: const SafeArea(
-        child: Padding(
-          padding: EdgeInsets.all(20.0),
-          child: Column(
-            children: [
-              BigAvatarImage(),
-              BigFullName(),
-              RepoDetailElements(),
-            ],
-          ),
-        )
+      body: Builder(
+        builder: (context) {
+          if(orientation == Orientation.portrait) {
+            return const SafeArea(
+              child: Padding(
+                padding: EdgeInsets.all(20.0),
+                child: Column(
+                  children: [
+                    BigAvatarImage(),
+                    BigFullName(),
+                    RepoDetailElements(),
+                  ],
+                ),
+              )
+            );
+          } else {
+            return const SafeArea(
+              child: Padding(
+                padding: EdgeInsets.all(10.0),
+                child: Row(
+                  children: [
+                    BigAvatarImage(),
+                    SizedBox(width: 20.0),
+                    Expanded(
+                      child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        BigFullName(),
+                        RepoDetailElements(),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              )
+            );
+          }
+        }
       )
     );
   }
