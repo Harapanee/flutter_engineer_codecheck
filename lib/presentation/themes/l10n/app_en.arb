@@ -1,0 +1,11 @@
+{
+  "@@locale": "en",
+  "searchPageTitle": "Search Repository",
+  "searchPlaceHolder": "search repository",
+  "detailViewTitle": "Detail View",
+  "stars": "Stars",
+  "watchers": "Watchers",
+  "language": "Language",
+  "forks": "Forks",
+  "openIssues": "Open Issues"
+}

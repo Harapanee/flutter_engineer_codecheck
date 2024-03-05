@@ -5,7 +5,7 @@ import 'package:flutter_engineer_codecheck/presentation/router/app.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 void main() {
-
+  
   //ウェブで動いているかどうか
   if (kIsWeb) {
     //デバイスプレビューを使う

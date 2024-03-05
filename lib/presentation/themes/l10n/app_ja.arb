@@ -1,0 +1,11 @@
+{
+  "@@locale": "ja",
+  "searchPageTitle": "レポジトリ検索",
+  "searchPlaceHolder": "レポジトリのキーワードを入力",
+  "detailViewTitle": "レポジトリ詳細",
+  "stars": "スター数",
+  "watchers": "ウォッチャー数",
+  "language": "言語",
+  "forks": "フォーク数",
+  "openIssues": "イシュー数"
+}

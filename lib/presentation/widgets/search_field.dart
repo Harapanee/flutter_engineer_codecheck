@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_engineer_codecheck/aplication/repo_list_provider.dart';
 import 'package:flutter_engineer_codecheck/infrastructure/api_client.dart';
-import 'package:flutter_engineer_codecheck/presentation/themes/texts.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SearchField extends ConsumerWidget {
   const SearchField({super.key});
@@ -15,7 +15,7 @@ class SearchField extends ConsumerWidget {
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(32),
         ),
-        hintText: Texts.searchPlaceHolder,
+        hintText: AppLocalizations.of(context)!.searchPlaceHolder,
       ),
       keyboardType: TextInputType.text,
       textInputAction: TextInputAction.search,

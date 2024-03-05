@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_engineer_codecheck/presentation/themes/texts.dart';
 import 'package:flutter_engineer_codecheck/presentation/widgets/search_field.dart';
 import 'package:flutter_engineer_codecheck/presentation/widgets/search_result_list.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class RepositorySearchPage extends StatelessWidget {
   const RepositorySearchPage({super.key});
@@ -10,7 +10,7 @@ class RepositorySearchPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(Texts.searchPageTitle),
+        title: Text(AppLocalizations.of(context)!.searchPageTitle),
       ),
       body: const SafeArea(
         child: Padding(

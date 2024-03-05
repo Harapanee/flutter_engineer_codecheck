@@ -3,8 +3,8 @@ import 'package:flutter_engineer_codecheck/aplication/selected_repo_provider.dar
 import 'package:flutter_engineer_codecheck/domain/repo_data_model.dart';
 import 'package:flutter_engineer_codecheck/presentation/themes/colors.dart';
 import 'package:flutter_engineer_codecheck/presentation/themes/fonts.dart';
-import 'package:flutter_engineer_codecheck/presentation/themes/texts.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class RepoDetailElements extends ConsumerWidget {
   const RepoDetailElements({super.key});
@@ -18,31 +18,31 @@ class RepoDetailElements extends ConsumerWidget {
         repoDetailElement(
           iconColor: BrandColor.bananaYellow,
           icon: Icons.star,
-          elementText: Texts.stars,
+          elementText: AppLocalizations.of(context)!.stars,
           elementData: repo.stargazersCount.toString()
         ),
         repoDetailElement(
           iconColor: BrandColor.blue,
           icon: Icons.remove_red_eye,
-          elementText: Texts.watchers,
+          elementText: AppLocalizations.of(context)!.watchers,
           elementData: repo.watchers.toString()
         ),
         repoDetailElement(
           iconColor: BrandColor.grey,
           icon: Icons.language,
-          elementText: Texts.language,
+          elementText: AppLocalizations.of(context)!.language,
           elementData: repo.language
         ),
         repoDetailElement(
           iconColor: BrandColor.grey,
           icon: Icons.code,
-          elementText: Texts.forks,
+          elementText: AppLocalizations.of(context)!.forks,
           elementData: repo.forks.toString()
         ),
         repoDetailElement(
           iconColor: BrandColor.red,
           icon: Icons.bug_report,
-          elementText: Texts.openIssues,
+          elementText: AppLocalizations.of(context)!.openIssues,
           elementData: repo.openIssuesCount.toString(),
         ),
       ],

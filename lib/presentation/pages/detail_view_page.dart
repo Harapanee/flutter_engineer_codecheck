@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_engineer_codecheck/aplication/selected_repo_provider.dart';
-import 'package:flutter_engineer_codecheck/domain/repo_data_model.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_engineer_codecheck/presentation/widgets/big_avatar_image.dart';
 import 'package:flutter_engineer_codecheck/presentation/widgets/big_fullname.dart';
 import 'package:flutter_engineer_codecheck/presentation/widgets/repo_detail_elements.dart';
@@ -12,9 +11,8 @@ class DetailViewPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final orientation = MediaQuery.of(context).orientation;
-    final repo = ref.watch(selectedRepoProvider) as Repository;
     final appBar = AppBar(
-      title: Text(repo.fullName),
+      title: Text(AppLocalizations.of(context)!.detailViewTitle),
     );
     return Scaffold(
       appBar: appBar,
