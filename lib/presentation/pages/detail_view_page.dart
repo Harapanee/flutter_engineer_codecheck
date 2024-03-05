@@ -45,7 +45,7 @@ class DetailViewPage extends ConsumerWidget {
                       child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        BigFullName(),
+                        Center(child: BigFullName(),),
                         RepoDetailElements(),
                         ],
                       ),
