@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_engineer_codecheck/aplication/selected_repo_provider.dart';
 import 'package:flutter_engineer_codecheck/domain/repo_data_model.dart';
@@ -14,7 +13,6 @@ class DetailViewPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final repo = ref.watch(selectedRepoProvider) as Repository;
     final appBar = AppBar(
-      backgroundColor: Colors.blue,
       title: Text(repo.fullName),
     );
     return Scaffold(
