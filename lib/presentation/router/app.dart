@@ -14,6 +14,8 @@ class MyApp extends ConsumerWidget {
     final router = ref.watch(goRouterProvider);
 
     return MaterialApp.router(
+
+      //多言語対応に必要な設定
       localizationsDelegates: const [
         AppLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,
@@ -25,10 +27,12 @@ class MyApp extends ConsumerWidget {
         Locale('en'), //英語
       ],
       
+      //画面遷移に必要な設定
       routeInformationProvider: router.routeInformationProvider,
       routeInformationParser: router.routeInformationParser,
       routerDelegate: router.routerDelegate,
 
+      //テーマ（ダークモードの設定）
       theme: ThemeData.light(),
       darkTheme: ThemeData.dark(),
     );

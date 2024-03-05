@@ -5,7 +5,7 @@
   "detailViewTitle": "レポジトリ詳細",
   "stars": "スター数",
   "watchers": "ウォッチャー数",
-  "language": "言語",
+  "language": "開発言語",
   "forks": "フォーク数",
   "openIssues": "イシュー数"
 }
