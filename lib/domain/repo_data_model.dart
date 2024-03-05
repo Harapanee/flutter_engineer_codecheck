@@ -20,7 +20,7 @@ class Repository {
 
   factory Repository.fromJson(Map<String, dynamic> json) {
     final ownerData = json['owner'] as Map<String, dynamic>?;
-    final avatarUrl = ownerData?['avatar_url'] as String;
+    final avatarUrl = ownerData?['avatar_url'] as String? ?? '';
 
     return Repository(
       fullName: json['full_name'] ?? 'N/A',
