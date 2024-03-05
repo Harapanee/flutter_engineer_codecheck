@@ -13,7 +13,6 @@ class DetailViewPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final repo = ref.watch(selectedRepoProvider) as Repository;
     final appBar = AppBar(
-      backgroundColor: Colors.blue,
       title: Text(repo.fullName),
     );
     return Scaffold(

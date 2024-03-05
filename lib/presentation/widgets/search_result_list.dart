@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_engineer_codecheck/aplication/repo_list_provider.dart';
 import 'package:flutter_engineer_codecheck/aplication/selected_repo_provider.dart';
 import 'package:flutter_engineer_codecheck/presentation/router/go_router.dart';
+import 'package:flutter_engineer_codecheck/presentation/themes/fonts.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class SearchResultList extends ConsumerWidget {
@@ -12,8 +13,6 @@ class SearchResultList extends ConsumerWidget {
     final repos = ref.watch(repoListProvider);
     final notifier = ref.read(selectedRepoProvider.notifier);
     return Expanded(
-      //width: Sizes.deviceSize.width,
-      //height: Sizes.deviceSize.height/2,
       child: ListView.builder(
         itemCount: repos.length,
         itemBuilder: (context, index) {
@@ -22,7 +21,10 @@ class SearchResultList extends ConsumerWidget {
             leading: CircleAvatar(
               backgroundImage: NetworkImage(repo.avatarUrl),
             ),
-            title: Text(repo.fullName),
+            title: Text(
+              repo.fullName,
+              style: BrandText.sizeS,
+              ),
             onTap: (){
               notifier.state = repo;
               final router = ref.read(goRouterProvider);
