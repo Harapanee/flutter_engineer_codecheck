@@ -33,9 +33,11 @@ flutter:
   uses-material-design: true
 
 flutter_launcher_icons:
+  image_path: "assets/ios_appicon.png"
   android: "launcher_icon"
   ios: true
-  image_path: "assets/ios_appicon.png"
+  adaptive_icon_background: "#6eb8bb"
+  adaptive_icon_foreground: "assets/android_appicon.png"
 
 flutter_native_splash:
   color: "#6eb8bb"
