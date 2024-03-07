@@ -30,7 +30,7 @@ class SearchResultList extends ConsumerWidget {
             ),
 
             title: Text(
-              AppLocalizations.of(context)!.stars,
+              repo.fullName,
               style: BrandText.sizeS,
             ),
             
