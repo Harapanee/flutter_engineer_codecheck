@@ -4,6 +4,10 @@ import 'package:flutter_engineer_codecheck/domain/repo_data_model.dart';
 import 'package:flutter_engineer_codecheck/presentation/themes/fonts.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+/*
+  詳細画面に表示するFullName
+*/
+
 class BigFullName extends ConsumerWidget {
   const BigFullName({super.key});
 

@@ -2,6 +2,10 @@ import 'dart:convert';
 import 'package:flutter_engineer_codecheck/domain/repo_data_model.dart';
 import 'package:http/http.dart' as http;
 
+/*
+  api通信
+*/
+
 Future<List<Repository>> searchRepos(String query, {int perPage = 100}) async {
   final searchUrl = 'https://api.github.com/search/repositories?q=$query&per_page=$perPage';
   final searchHeaders = {

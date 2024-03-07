@@ -4,7 +4,6 @@ import 'package:flutter_engineer_codecheck/aplication/selected_repo_provider.dar
 import 'package:flutter_engineer_codecheck/presentation/router/go_router.dart';
 import 'package:flutter_engineer_codecheck/presentation/themes/fonts.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 /*
   検索結果を表示するリスト

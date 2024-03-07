@@ -1,4 +1,8 @@
 
+/*
+  レポジトリクラスの構造
+*/
+
 class Repository {
   final String fullName;
   final int stargazersCount;

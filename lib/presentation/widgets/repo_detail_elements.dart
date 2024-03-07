@@ -6,6 +6,10 @@ import 'package:flutter_engineer_codecheck/presentation/themes/fonts.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+/*
+  レポジトリ詳細画面に表示するレポジトリのディテール
+*/
+
 class RepoDetailElements extends ConsumerWidget {
   const RepoDetailElements({super.key});
 
@@ -15,30 +19,39 @@ class RepoDetailElements extends ConsumerWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        //スター数
         repoDetailElement(
           iconColor: BrandColor.bananaYellow,
           icon: Icons.star,
           elementText: AppLocalizations.of(context)!.stars,
           elementData: repo.stargazersCount.toString()
         ),
+
+        //ウォッチャー数
         repoDetailElement(
           iconColor: BrandColor.blue,
           icon: Icons.remove_red_eye,
           elementText: AppLocalizations.of(context)!.watchers,
           elementData: repo.watchers.toString()
         ),
+
+        //開発言語
         repoDetailElement(
           iconColor: BrandColor.grey,
           icon: Icons.language,
           elementText: AppLocalizations.of(context)!.language,
           elementData: repo.language
         ),
+
+        //フォーク数
         repoDetailElement(
           iconColor: BrandColor.grey,
           icon: Icons.code,
           elementText: AppLocalizations.of(context)!.forks,
           elementData: repo.forks.toString()
         ),
+
+        //オープンイシュー数
         repoDetailElement(
           iconColor: BrandColor.red,
           icon: Icons.bug_report,
@@ -49,6 +62,7 @@ class RepoDetailElements extends ConsumerWidget {
     );
   }
 }
+
 
 Widget repoDetailElement({
     required Color iconColor,

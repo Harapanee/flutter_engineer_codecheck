@@ -5,6 +5,11 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_engineer_codecheck/presentation/themes/sizes.dart';
 
+
+/*
+  最初に呼ばれるMyApp
+*/
+
 class MyApp extends ConsumerWidget {
   const MyApp({super.key});
 

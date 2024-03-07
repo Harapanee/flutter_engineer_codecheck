@@ -4,6 +4,10 @@ import 'package:flutter_engineer_codecheck/infrastructure/api_client.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+/*
+  レポジトリを検索するサーチフィールド
+*/
+
 class SearchField extends ConsumerWidget {
   const SearchField({super.key});
 

@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 
+/*
+  使用するサイズをここにまとめる
+*/
+
 class Sizes{
   //デバイスのサイズ
   static Size deviceSize = const Size(0,0);
